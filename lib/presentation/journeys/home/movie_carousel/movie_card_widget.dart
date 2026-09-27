@@ -1,0 +1,40 @@
+import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+
+import '../../../../common/constants/route_constants.dart';
+import '../../../../common/constants/size_constants.dart';
+import '../../../../data/core/api_constants.dart';
+import '../../movie_detail/movie_detail_arguments.dart';
+
+
+class MovieCardWidget extends StatelessWidget {
+  final int movieId;
+  final String posterPath;
+
+  const MovieCardWidget({
+
+    required this.movieId,
+    required this.posterPath,
+  }) : super();
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      elevation: 32,
+      borderRadius: BorderRadius.circular(Sizes.dimen_16),
+      child: GestureDetector(
+        onTap: () {
+          Navigator.of(context).pushNamed(RouteList.movieDetail, arguments: MovieDetailArguments(movieId));
+
+        },
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(Sizes.dimen_16),
+          child: CachedNetworkImage(
+            imageUrl: '${ApiConstants.BASE_IMAGE_URL}$posterPath',
+            fit: BoxFit.cover,
+          ),
+        ),
+      ),
+    );
+  }
+}

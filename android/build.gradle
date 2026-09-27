@@ -1,0 +1,33 @@
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.buildDir = "../build"
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+
+subprojects { project ->
+    project.plugins.withId("com.android.library") {
+        if (project.android.namespace == null) {
+            if (project.name == "flutter_inappwebview") {
+                project.android.namespace = "com.pichillilorenzo.flutter_inappwebview"
+            } else if (project.group) {
+                project.android.namespace = project.group
+            } else {
+                project.android.namespace = "com.example.${project.name.replace('-', '_')}"
+            }
+        }
+    }
+}
+
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

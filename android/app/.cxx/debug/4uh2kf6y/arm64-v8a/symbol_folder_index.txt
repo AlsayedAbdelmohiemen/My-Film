@@ -1,0 +1,1 @@
+E:\My_Project\movie\android\app\build\intermediates\cxx\debug\4uh2kf6y\obj\arm64-v8a
